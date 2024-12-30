@@ -1,0 +1,20 @@
+<!-- mainapp/templates/mainapp/result.html -->
+{% extends 'mainapp/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Form Data and Prediction Results</h2>
+    
+    <h3>Input Data:</h3>
+    <ul>
+    {% for key, value in form_data.items %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Prediction Results:</h3>
+    <p>Prediction: {% if prediction.prediction %}Heart Disease Risk{% else %}No Heart Disease Risk{% endif %}</p>
+    <p>Probability: {{ prediction.probability|floatformat:2 }}</p>
+
+    <a href="{% url 'predict' %}" class="btn btn-primary">Make Another Prediction</a>
+</div>
+{% endblock %}

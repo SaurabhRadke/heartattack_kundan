@@ -1,0 +1,29 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+<div class="container mt-5">
+   <h2>Prediction History</h2>
+   <table class="table">
+       <thead>
+           <tr>
+               <th>Date</th>
+               <th>Age</th>
+               <th>Sex</th>
+               <th>Prediction</th>
+               <th>Probability</th>
+           </tr>
+       </thead>
+       <tbody>
+           {% for pred in predictions %}
+           <tr>
+               <td>{{ pred.created_at|date:"Y-m-d H:i" }}</td>
+               <td>{{ pred.age }}</td>
+               <td>{{ pred.get_sex_display }}</td>
+               <td>{% if pred.prediction %}Risk{% else %}No Risk{% endif %}</td>
+               <td>{{ pred.probability|floatformat:2 }}</td>
+           </tr>
+           {% endfor %}
+       </tbody>
+   </table>
+   <a href="{% url 'predict' %}" class="btn btn-primary">New Prediction</a>
+</div>
+{% endblock %}
