@@ -1,12 +1,24 @@
 {
-    "builds": [{
-      "src": "formproject/wsgi.py",
-      "use": "@vercel/python"
-    }],
-    "routes": [
+  "version": 2,
+  "builds": [
       {
-        "src": "/(.*)",
-        "dest": "formproject/wsgi.py"
+          "src": "build_files.sh",
+          "use": "@vercel/static-build",
+          "config": { "distDir": "staticfiles" }
+      },
+      {
+          "src": "formproject/wsgi.py",
+          "use": "@vercel/python"
       }
-    ]
+  ],
+  "routes": [
+      {
+          "src": "/static/(.*)",
+          "dest": "/static/$1"
+      },
+      {
+          "src": "/(.*)",
+          "dest": "formproject/wsgi.py"
+      }
+  ]
 }
